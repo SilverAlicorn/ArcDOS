@@ -1,0 +1,24 @@
+These are small demos showing off different functionality of the Nintendo DS.
+
+tilefont.nds shows a simple way to get text onto the NDS screen. It is naive
+but somewhat useful for early debugging.
+
+peekreg.nds is a small program build on tilefont.nds that outputs a register
+or a word in memory as a binary string on the top screen. It was originally
+written to make sure code dealing with the stack pointer was functioning
+correctly.
+
+smartprint.nds is a demo showing off a more sophisticated print function. It
+can print a string of text to either screen. If the string is longer than will
+fit on the screen, it keeps deleting lines off the top until the last page of
+the string is showing. Meant to be a baseline for all later text output needs.
+
+These files can be assembled via the following invocation:
+
+$ arm-eabi-as -o arm9.elf [source].s
+$ arm-eabi-as -o arm7.elf default_arm7.s
+$ arm-eabi-objcopy -O binary arm9.elf arm9.bin
+$ arm-eabi-objcopy -O binary arm7.elf arm7.bin
+$ ndstool -c [output].nds -9 arm9.bin -7 arm7.bin
+
+The included font is kindly borrowed from John Hall: http://overcode.yak.net/12
