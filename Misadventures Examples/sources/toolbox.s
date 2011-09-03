@@ -105,6 +105,7 @@ IRQ_Init:
 @ initial setup. Meant to be used with the included print function.
 @------------------------------------------------------------------------------
 console_init:
+	push {lr}
 	mov r0,#0x4000000	@ I/O space offset
 	mov r1,#0x200
 	orr r1,#0x3		@ Enable both screens in POWCNT1
@@ -115,7 +116,7 @@ console_init:
 	str r1,[r0, #0x304]	@ Set POWCNT1
 	str r2,[r0]		@     DISPCNT
 	str r3,[r0, #0x240]	@     VRAMCNT_A
-	str r4,[r0, #0x248]	@     VRAMCNT_H
+	str r3,[r0, #0x248]	@     VRAMCNT_H
 
 	mov r1,#0x84		@ BG0 tile mode, 32x32 @ 256 color
 	str r1,[r0, #0x8]	@ Set BG0CNT
@@ -129,7 +130,7 @@ console_init:
 	mov r2,#16		@ Copying 32 bytes
 	blx swiCpuSet
 
-	orr r2,r2,#0x400	@ Sub screen palette memory
+	orr r1,r1,#0x400	@ Sub screen palette memory
 	blx swiCpuSet
 
 	adrl r0,fontTiles	@ Start of tile data
@@ -141,7 +142,9 @@ console_init:
 	orr r1,#0x200000	@ Switch to sub screen
 	blx swiCpuSet		@ Copy tiles to sub screen
 
-	bx lr
+	pop {pc}
+
+	.include "font.s"
 @------------------------------------------------------------------------------
 @ BIOS call stubs follow.
 @------------------------------------------------------------------------------

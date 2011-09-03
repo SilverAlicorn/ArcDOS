@@ -1,7 +1,6 @@
 
 b main
 	.include "toolbox.s"
-	.include "font.s"
 	
 	.arm
 main:
@@ -17,17 +16,24 @@ main:
 	mov r2,#0
 	bl print
 
+	mov r0,#0x6000000
+	adr r1,buffer_main
+	bl updateScreen16
+
+	mov r0,#0x6200000
+	adr r1,buffer_sub
 	bl updateScreen16
 
 nf: 	b nf
 	
 	.align
 maintext:
-	.asciz "Hello, Nintendo DS!\n This is a text demo."
+	.asciz "Hello, Nintendo DS!\nThis is a text demo."
 	
 	.align
 subtext:
-	.asciz "We are drawing on two screens as well."
+	.ascii "We are drawing on two screens as"
+	.asciz "well."
 
 	.align
 buffer_main:
