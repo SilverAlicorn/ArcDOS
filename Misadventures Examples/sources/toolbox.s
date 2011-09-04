@@ -81,7 +81,7 @@ updateScreen16:
 @ in IRQhandler.s. This must be called from a privileged mode or spooky things
 @ may happen.
 @------------------------------------------------------------------------------
-IRQ_Init:
+IRQ_init:
 	mrc p15,0,r0,c9,c1	@ Read DTCM size & base address into r0
 	mov r0,r0,lsr #12
 	mov r0,r0,lsl #12	@ Remove size bits to reveal address
@@ -93,6 +93,8 @@ IRQ_Init:
 	mov r1,#1
 	str r1,[r0,#0x208]	@ Enable interrupts in IME
 	str r1,[r0,#0x210]	@ Enable vblank interrupt in IE
+	mov r1,#0x8
+	str r1,[r0,#0x4]	@ Generate vblank interrupts
 
 	bx lr
 
