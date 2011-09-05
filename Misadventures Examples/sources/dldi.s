@@ -1,4 +1,4 @@
-	b main
+	b main		@ Skip over to main program!
 
 	.space 252
 
@@ -80,27 +80,28 @@ _dldi_end:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 	.include "toolbox.s"
-	.arm
+	.arm			@ Toolbox ends in THUMB mode
 main:
-	bl console_init
+	bl console_init		@ Initialize screens for text
 
-	mov r0,#0
-	mov r1,#1
-	adr r2,readbuffer
-	adrl r3, _io_dldi
-	add r3,#0x10
-	ldr r4,[r3]
-	orr r4,#0x2000000
-	blx r4
+	mov r0,#0		@ LBA of first sector to read
+	mov r1,#1		@ # of sectors to read
+	adr r2,readbuffer	@ buffer to read into
+	adrl r3, _io_dldi + 0x10	@ Get pointer for DLDI read command
+	ldr r3,[r3]		@ Dereference pointer
+	orr r3,#0x2000000	@ Correct address
+	blx r3
 
-	adrl r0,mbrtext
-	adr r1,textbuffer
-	mov r2,#0
+	adrl r0,mbrtext		@ Message about what's being printed
+	adr r1,textbuffer	@ Buffer to print to
+	mov r2,#0		@ Cursor position
 	bl print
 
 	adr r1,readbuffer
-	ldr r0,[r1, #0x1c2]
-	adrl r1,mbrtext
+	ldrb r0,[r1, #0x1c2]	@ Get partition type for first partition
+	adrl r1,mbrtext		@ Store it in this now unused spot
+
+@------------------------------------------------------------------------------	
 binToString:
 	mov r2,#0x30		@ ASCII for 0
 	strb r2,[r1]		@ Write to string
@@ -112,8 +113,8 @@ binToString:
 	@ Now, mask each bit in the number and read it out to the string. Remember to write ASCII
 	@ codes and not numerical values!
 	
-	mov r3,#0x80000000		@ Initial mask bit
-	mov r4,#32			@ And loop 32 times
+	mov r3,#0x80		@ Initial mask bit
+	mov r4,#8			@ And loop 8 times
 binToString_loop:
 	tst r0,r3			@ Compare input to mask bit
 	moveq r2,#0x30		@ Write a 0 if it's 0
@@ -126,18 +127,19 @@ binToString_loop:
 
 	mov r2,#0			@ String delimiter
 	strb r2,[r1]		@ Close off string
+@------------------------------------------------------------------------------
 
 	adrl r0,mbrtext
 	adr r1,textbuffer
-	mov r2,#32
+	mov r2,#32		@ Print binary string on second line
 	bl print
 
-	mov r0,#0x6200000
+	mov r0,#0x6200000	@ Display buffer on sub screen
 	bl updateScreen16
 
 nf:	b nf
 
-	.ascii "DEADBEEF"
+	.ascii "DEADBEEF"	@ String to help find this section in a debugger
 readbuffer:
 	.space 512
 
