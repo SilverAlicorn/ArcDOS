@@ -80,8 +80,69 @@ _dldi_end:
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 	.include "toolbox.s"
-
+	.arm
 main:
 	bl console_init
 
+	mov r0,#0
+	mov r1,#1
+	adr r2,readbuffer
+	adrl r3, _io_dldi
+	add r3,#0x10
+	ldr r4,[r3]
+	orr r4,#0x2000000
+	blx r4
+
+	adrl r0,mbrtext
+	adr r1,textbuffer
+	mov r2,#0
+	bl print
+
+	adr r1,readbuffer
+	ldr r0,[r1, #0x1c2]
+	adrl r1,mbrtext
+binToString:
+	mov r2,#0x30		@ ASCII for 0
+	strb r2,[r1]		@ Write to string
+	add r1,r1,#1		@ Move to next char
+	mov r2,#0x62		@ ASCII for b
+	strb r2,[r1]		@ Write to string
+	add r1,r1,#1		@ Move to next char
+
+	@ Now, mask each bit in the number and read it out to the string. Remember to write ASCII
+	@ codes and not numerical values!
+	
+	mov r3,#0x80000000		@ Initial mask bit
+	mov r4,#32			@ And loop 32 times
+binToString_loop:
+	tst r0,r3			@ Compare input to mask bit
+	moveq r2,#0x30		@ Write a 0 if it's 0
+	movne r2,#0x31		@ Or write a 1 if it isn't
+	strb r2,[r1]		@ Write it to the string
+	add r1,r1,#1		@ Advance string pointer
+	lsr r3,r3,#1		@ Shift mask bit right one
+	subs r4,r4,#1		@ Decrement loop counter
+	bne binToString_loop	@ Loop back
+
+	mov r2,#0			@ String delimiter
+	strb r2,[r1]		@ Close off string
+
+	adrl r0,mbrtext
+	adr r1,textbuffer
+	mov r2,#32
+	bl print
+
+	mov r0,#0x6200000
+	bl updateScreen16
+
 nf:	b nf
+
+	.ascii "DEADBEEF"
+readbuffer:
+	.space 512
+
+textbuffer:
+	.space 768
+
+mbrtext:
+	.asciz "Partition 1 filesystem type:"
