@@ -6,7 +6,7 @@ int main()
 	console_init();
 
 //	puts("Hello, world\n", MAIN_SCREEN);
-	putline("Hello", 23);
+	putline("weedlord bonerhitler", 16);
 
 	while (1);
 }
