@@ -34,3 +34,22 @@ void putline(char *input, int linenum)
 		map1[linenum + i] = input[i];
 	}
 }
+
+void hex2ascii(int *address, char *outstring)
+{
+	int input = *address;
+	int i = 8;
+	while (i > 0) {
+		i--;
+		outstring[i] = (input & 0xf);
+		if (outstring[i] > 9)
+			outstring[i] += 0x57;
+		else
+			outstring[i] += 0x30;
+
+		input = input >> 4;
+	}
+
+}
+
+
