@@ -10,18 +10,23 @@ unsigned short *map1 = (unsigned short*)0x6000000;
  * screens or put in a software keyboard or something. */
 void console_init()
 {
-	POWCNT1 = ENABLE_SCREENS | ENGINE_A_2D | ENGINE_B_2D;
+//	POWCNT1 = ENABLE_SCREENS | ENGINE_A_2D;
+	POWCNT1 = 0x203;
 
-	VRAMCNT_A = VRAM_ENABLE | VRAM_MST1;	// Engine A BG
-//	VRAMCNT_C = VRAM_ENABLE | VRAM_MST4;	// Engine B BG
-	
-	DISPCNT = NORM_DISPLAY | BG0_ENABLE;
+//	DISPCNT = NORM_DISPLAY | BG0_ENABLE;
+	DISPCNT = 0x10100;
+
+//	VRAMCNT_A = VRAM_ENABLE | VRAM_MST1;	// Engine A BG
+	VRAMCNT_A = 0x81;
 
 	BG0CNT = BG_SIZE0 | BG_CHARBASE1;
+//	BG0CNT = 0x84;
+	
+
 
 	// BIOS functions are kinda like magic
 	CpuSet(consolefontPal, &MAIN_PALMEM, consolefontPalLen);
-	LZ77UnCompVram(consolefontTiles, VRAM_6000000 + 0x4000);
+	CpuSet(consolefontTiles, VRAM_6000000 + 0x4000, consolefontTilesLen);
 }
 
 void putline(char *input, int linenum)
@@ -51,5 +56,3 @@ void hex2ascii(int *address, char *outstring)
 	}
 
 }
-
-

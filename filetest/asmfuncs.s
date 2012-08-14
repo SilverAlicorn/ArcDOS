@@ -1,17 +1,16 @@
 @ Calling THUMB functions from ARM code
 	.text
-	.code 32
 	.global LZ77UnCompVram
+	.thumb_func
 LZ77UnCompVram:
-	push {lr}
-	blx bios_swi12
-	pop {pc}
+	swi 0x12
+	bx lr
 
 	.global CpuSet
+	.thumb_func
 CpuSet:
-	push {lr}
-	blx bios_swi0b
-	pop {pc}
+	swi 0x0b
+	bx lr
 
 	.align
 	.code 16
