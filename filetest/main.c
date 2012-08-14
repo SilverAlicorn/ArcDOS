@@ -47,6 +47,8 @@ int main()
 		lba = lba << 8;
 		lba |= buffer[454];
 
+		int p1start = lba;
+
 		hex2ascii(&lba, lbaout);
 		putline("Partition 1 LBA:", 5);
 		putline(lbaout, 6);
@@ -63,7 +65,7 @@ int main()
 		putline("Partition 1 size:", 7);
 		putline(lbaout, 8);
 		
-		_io_dldi.readsectors(lba, 1, buffer);
+		_io_dldi.readsectors(p1start, 1, buffer);
 		hex2ascii(&buffer[21], lbaout);
 		putline("Partition 1 media descriptor:", 9);
 		putline(lbaout, 10);
