@@ -51,7 +51,15 @@ int main()
 		putline("Partition 1 LBA:", 5);
 		putline(lbaout, 6);
 		
-		hex2ascii(&buffer[458], lbaout);
+		lba = buffer[461];
+		lba = lba << 8;
+		lba |= buffer[460];
+		lba = lba << 8;
+		lba |= buffer[459];
+		lba = lba << 8;
+		lba |= buffer[458];
+
+		hex2ascii(&lba, lbaout);
 		putline("Partition 1 size:", 7);
 		putline(lbaout, 8);
 		
