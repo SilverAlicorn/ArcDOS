@@ -21,4 +21,6 @@ $ arm-eabi-objcopy -O binary arm9.elf arm9.bin
 $ arm-eabi-objcopy -O binary arm7.elf arm7.bin
 $ ndstool -c [output].nds -9 arm9.bin -7 arm7.bin
 
+You will need DevKitPro to assemble these demos.
+
 The included font is kindly borrowed from John Hall: http://overcode.yak.net/12
