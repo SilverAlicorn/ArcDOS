@@ -1,8 +1,8 @@
 Welcome to ArcDOS, the Arc Disk Operating System!
 
-ArcDOS is (note: was to be) an educational operating system for the Nintendo DS. Above all, it is
+ArcDOS is a work-in-progress educational operating system for the Nintendo DS. Above all, it is
 simple, designed with clarity of code in mind. It provides a simple command
 line interface for loading and executing files, and that's about it.
 
-ArcDOS is a low-level component of ArcOS, a full-featured operating system in
+ArcDOS is a low-level component of ArcOS, a "full featured" operating system in
 the same vein. As of yet ArcOS has not been developed.
