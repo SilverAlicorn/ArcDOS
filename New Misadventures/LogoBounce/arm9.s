@@ -54,7 +54,7 @@ start:
     mov r0,#0x6000000       @ Pointer to VRAM
     adr r3,logoBitmap       @ Pointer for bitmap data
     ldrh r1,[r3],#2         @ Load pixel into color register & advance pointer
-    mov r2,#0x18000         @ Loop counter = 96K of pixels (256x192 pixels, 16 bit color)
+    mov r2,#0x6000         @ Loop counter = 48K of pixels (256x192 pixels, 8 bit color)          
     .pool
 
 loop:
@@ -66,8 +66,7 @@ loop:
     mov r0,#0x5000000	    @ Palette memory
 	adrl r3,logoPal		    @ Pointer for palette data (needs to be long)
 	ldrh r1,[r3],#2		    @ Load palette data into color reg
-	mov r2,#0x200		    @ Loop counter - 512B of memory
-
+	mov r2,#0x100		    @ Loop counter - 256B of memory
 loop2:
     strh r1,[r0],#2		    @ Write pixel to palette memory
 	ldrh r1,[r3],#2		    @ load the next one
@@ -82,28 +81,29 @@ loop2:
 	strh r1,[r0,#0x36]	    @ REG_BG3PD
     str r2,[r0,#0x38]      @ REG_BG3X
     str r5,[r0,#0x3C]      @ REG_BG3Y
-    mov r3,#0x48            @ X Loop counter
-    mov r4,#0x0             @ X Direction
-    mov r6,#0x28            @ Y Loop counter
-    mov r7,#0x0             @ Y Direction
+    mov r3,#0x48            @ X Loop counter    @ NDS extended backgrounds are a little weird,
+    mov r4,#0x0             @ X Direction       @ The origin is in the middle instead of the corner.
+    mov r6,#0x28            @ Y Loop counter    @ So you need to put in positive numbers to scroll left,
+    mov r7,#0x0             @ Y Direction       @ Or negative numbers to scroll right.
 animate:
-    swi 0x60000
-    mov r0,#0x4000000
-    subs r3,r3,#1
-    eoreq r4,r4,#0x1        @ Change direction
-    moveq r3,#0x90       @ Reset loop counter
-    cmp r4,#0x1
-    addne r2,r2,#0x100
-    subeq r2,r2,#0x100
-    str r2,[r0,#0x38]
-    subs r6,r6,#1
+    swi 0x60000             @ Call BIOS to halt CPU & wait for interrupts
+    mov r0,#0x4000000       @ Reload main I/O space
+    subs r3,r3,#1           @ Decrement X loop
+    eoreq r4,r4,#0x1        @ Change X direction
+    moveq r3,#0x90          @ Reset X loop counter
+    cmp r4,#0x1             @ Test which direction we're moving in
+    addne r2,r2,#0x100      @ Move left
+    subeq r2,r2,#0x100      @ Or move right
+    str r2,[r0,#0x38]       @ Write offset to control register
+
+    subs r6,r6,#1           @ Decrement Y loop
     eoreq r7,r7,#0x1        @ Change Y direction
     moveq r6,#0x50          @ Reset Y loop counter
-    cmp r7,#0x1
-    addne r5,r5,#0x200
-    subeq r5,r5,#0x200
-    str r5,[r0,#0x3C]
-    b animate
+    cmp r7,#0x1             @ Test which direction we're mobing in
+    addne r5,r5,#0x200      @ Move left
+    subeq r5,r5,#0x200      @ Or move right
+    str r5,[r0,#0x3C]       @ Write offset to control register
+    b animate               @ loop forever
 
 nf: b nf                    @ Do nothing forever
 

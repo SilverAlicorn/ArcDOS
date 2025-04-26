@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="256"
+   height="192"
+   viewBox="0 0 67.733332 50.8"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="ArcOS Logo.svg"
+   inkscape:export-filename="New Misadventures\LogoBounce\ArcOS Logo.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="3.0009778"
+     inkscape:cx="185.27294"
+     inkscape:cy="127.79168"
+     inkscape:window-width="3440"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.3;paint-order:markers fill stroke"
+       id="rect1"
+       width="67.628777"
+       height="50.820755"
+       x="0.09481407"
+       y="0.10242273"
+       ry="0" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.3;paint-order:markers fill stroke"
+       id="rect2"
+       width="32.293453"
+       height="13.902392"
+       x="17.71994"
+       y="18.448803" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.86176px;font-family:'Handel Gothic';-inkscape-font-specification:'Handel Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#626286;fill-opacity:1;stroke:none;stroke-width:0.498481;paint-order:markers fill stroke"
+       x="27.910667"
+       y="27.647631"
+       id="text2"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.86176px;font-family:'Handel Gothic';-inkscape-font-specification:'Handel Gothic, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#626286;fill-opacity:1;stroke-width:0.498481"
+         x="27.910667"
+         y="27.647631">ArcOS</tspan></text>
+    <path
+       style="fill:none;fill-opacity:1;stroke:#636387;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       id="path2"
+       sodipodi:type="arc"
+       sodipodi:cx="43.936653"
+       sodipodi:cy="25.152304"
+       sodipodi:rx="5.1432619"
+       sodipodi:ry="5.1432619"
+       sodipodi:start="0"
+       sodipodi:end="4.2865286"
+       sodipodi:arc-type="arc"
+       d="m 49.079915,25.152304 a 5.1432619,5.1432619 0 0 1 -4.415608,5.091528 5.1432619,5.1432619 0 0 1 -5.665023,-3.650858 5.1432619,5.1432619 0 0 1 2.812665,-6.124555"
+       sodipodi:open="true" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#636387;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       id="path3"
+       sodipodi:type="arc"
+       sodipodi:cx="44.075451"
+       sodipodi:cy="25.391125"
+       sodipodi:rx="3.5077198"
+       sodipodi:ry="3.5077198"
+       sodipodi:start="2.9172509"
+       sodipodi:end="1.2788436"
+       sodipodi:arc-type="arc"
+       d="m 40.655632,26.171468 a 3.5077198,3.5077198 0 0 1 2.562607,-4.181709 3.5077198,3.5077198 0 0 1 4.238396,2.467722 3.5077198,3.5077198 0 0 1 -2.371582,4.29293"
+       sodipodi:open="true" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#636387;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       id="path4"
+       sodipodi:type="arc"
+       sodipodi:cx="44.006683"
+       sodipodi:cy="25.391094"
+       sodipodi:rx="1.5429"
+       sodipodi:ry="1.5429"
+       sodipodi:start="1.109055"
+       sodipodi:end="5.5937094"
+       sodipodi:arc-type="arc"
+       d="m 44.694057,26.772419 a 1.5429,1.5429 0 0 1 -2.012591,-0.591173 1.5429,1.5429 0 0 1 0.436838,-2.051628 1.5429,1.5429 0 0 1 2.078849,0.279987"
+       sodipodi:open="true" />
+  </g>
+</svg>
