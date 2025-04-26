@@ -115,10 +115,6 @@ irqHandler:                 @ BIOS branches here after saving scratch registers 
     str r1,[r0,#0x214]      @ Acknowledge VRAM interrupt in REG_IF
     ldr r0,=0x27C3FF8       @ REG_IF mirror in DTCM
     str r1,[r0]             @ Acknowledge VRAM interrupt in REG_IF mirror
-    ldr r0,=0x27C0000       @ Start of DTCM, where we saved the color value
-    ldr r1,[r0]             @ Load it into r1
-    add r1,r1,#0x1          @ Add 1 to make it a different color
-    str r1,[r0]             @ Write back to DTCM
     mov r0,#0x4000000       @ Main IO offset
     mov r1,#0x1
     str r1,[r0,#0x208]      @ Enable interrupts in REG_IME
