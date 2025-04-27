@@ -64,7 +64,7 @@ nf: b nf                    @ Do nothing forever
 irqVector:
     .word 0xEA00003C        @ Should branch to #0x100
 
-irqHandler:                 @ BIOS branches here after saving scratch registers & lr to stack
+irqHandler:                 @ This does NOT save any registers to stack!
     mov r0,#0x4000000       @ Main I/O offset
     mov r1,#0x0
     str r1,[r0,#0x208]      @ Disable interrupts in REG_IME
