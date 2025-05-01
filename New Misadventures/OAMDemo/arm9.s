@@ -61,7 +61,7 @@ start:
     mov r0,#0x6000000       @ Pointer to VRAM
     adr r3,logoBitmap       @ Pointer for bitmap data
     ldrh r1,[r3],#2         @ Load pixel into color register & advance pointer
-    mov r2,#0x6000         @ Loop counter = 24K of pixels (256x192 pixels, 8 bit color)          
+    mov r2,#0x10000         @ Loop counter = 32K of pixels (256x192 pixels, 8 bit color)          
     b logo_lp
     .pool
 
@@ -188,7 +188,7 @@ irqHandler:                 @ BIOS branches here after saving scratch registers 
     bx lr                   @ Return to BIOS
     .pool
 
-helloText: .asciz "Hello world! Shout out to my friends in YOSPOS!"
+helloText: .asciz "Hello world! Thanks to DevKitPro for making this possible!"
 
     .include "logo.s"
     .include "font.s"
