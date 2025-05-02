@@ -1,5 +1,5 @@
-@@@ Make a cheese wedge looking thing and rotate it. Over time, rounding errors add up
-@@@ and the shape distorts.
+@@@ Make a cheese wedge looking thing and rotate it. After each full rotation,
+@@@ reset the position matrix to avoid distortion.
 
     .text
     .align 2
@@ -66,7 +66,7 @@ GEStart:
     ldr r1,=0xBFFF0000      @ Viewport coordinate X2 (X1,Y1 are 0)
     str r1,[r0,#0x580]      @ Write to VIEWPORT
 
-
+    @@@ Tilt the cheese forward a little so it's not facing the camera perfectly
     ldr r0,=0x4000440       @ MTX_MODE
     mov r1,#1
     str r1,[r0]             @ Set MTX_MODE to Position Matrix
@@ -79,7 +79,7 @@ GEStart:
     str r1,[r0]             @ 0
 
     mov r1,#0               @ Matrix Row 2
-    str r1,[r0]             @ 0
+    str r1,[r0]             @ 0 
     ldr r1,=0xE1C
     str r1,[r0]             @ .882
     ldr r1,=0xFFFFF879               
@@ -92,10 +92,17 @@ GEStart:
     ldr r1,=0xE1C
     str r1,[r0]             @ .882
 
+    ldr r3,=0x2000      @ Loop counter for resetting the transform matrix
 GECont:
     swi 0x60000             @ Wait for vblank
     bl drawCheese
     
+    ldr r4,=0x34            @ FYI this value was found by trial and error.
+                            @ I am still learning about quaternions
+    sub r3,r3,r4           @ Decrement loop
+    tst r3,#0x10000000
+    blne resetCheese         @ Reset transform matrix
+
     mov r0,#0x4000000       @ Display registers
     mov r1,#0
     str r1,[r0,#0x540]      @ SWAP_BUFFERS
@@ -205,6 +212,40 @@ drawCheese:
     ldr r0,=0x4000504           
     str r1,[r0]        @ (END_VTXS)
 
+    bx lr
+    .pool
+
+resetCheese:
+    ldr r0,=0x4000440       @ MTX_MODE
+    mov r1,#1
+    str r1,[r0]             @ Set MTX_MODE to Position Matrix
+    ldr r0,=0x4000454       @ MTX_IDENTITY
+    str r1,[r0]             @ Reset matrix
+
+    @@@ Tilt the cheese forward a little so it's not facing the camera perfectly
+    ldr r0,=0x4000468       @ MTX_MULT_3x3
+    
+    mov r1,#0x1000          @ Matrix Row 1
+    str r1,[r0]             @ 1
+    mov r1,#0
+    str r1,[r0]             @ 0
+    str r1,[r0]             @ 0
+
+    mov r1,#0               @ Matrix Row 2
+    str r1,[r0]             @ 0
+    ldr r1,=0xE1C
+    str r1,[r0]             @ .882
+    ldr r1,=0xFFFFF879               
+    str r1,[r0]             @ -.471
+
+    mov r1,#0               @ Matrix Row 3
+    str r1,[r0]             @ 0
+    ldr r1,=0x787               
+    str r1,[r0]             @ .471
+    ldr r1,=0xE1C
+    str r1,[r0]             @ .882
+
+    mov r3,#0x2000          @ Reset loop counter
     bx lr
     .pool
 
